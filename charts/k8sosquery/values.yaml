@@ -126,6 +126,20 @@ configmap:
     # In order to use a proxy running in the same cluster by service name please specify the complete service name below like this:
     # local_proxy: <proxy_name>.<proxy_namespace>.svc.cluster.local
     local_proxy:
+    # osquery flags rendered into the osquery.flags entry of the configmap.
+    # The chart ships a complete set of defaults (the "k8sosquery.defaultFlags" helper in
+    # templates/_helpers.tpl); whatever is set here is merged over them, so only the flags
+    # that need changing have to be listed. Keys are flag names without the leading "--",
+    # and a flag set to null is omitted from the rendered flags file entirely.
+    # By default --tls_hostname is set to the uptycsCloud value above.
+    flags: {}
+    # Example:
+    # flags:
+    #   verbose_level: 3
+    #   enable_disk_scan: true
+    #   watchdog_memory_limit: 500
+    #   # Omit the flag altogether rather than passing a value for it:
+    #   augeas_lenses: null
 
 # Uptycs enroll secret & nginx certs are stack specific & are required to communitcate with Uptycs cloud service.
 # Enroll secret contains customer identifiers & should match with allowed Uptycs infra config.
